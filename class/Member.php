@@ -1,4 +1,5 @@
 <?php
+include "./Animanga.php";
 include "../config/database.php";
 class Member {
     protected int $id;
@@ -8,24 +9,33 @@ class Member {
     protected string $profile_image;
     protected string $back_image;
     protected string $description;
-    protected $notes;
-    protected $comments;
+    //protected $notes;
+    //protected $comments;
     protected string $last_connection;
     protected string $role;
 
-    protected $db;
 
-
-    function __construct(int $id) {
+    function __construct(
+        int $id,
+        string $username,
+        string $email,
+        string $password,
+        string $profile_image,
+        string $back_image,
+        string $description
+    ) {
         $this->id = $id;
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
+        $this->profile_image = $profile_image;
+        $this->back_image = $back_image;
+        $this->description = $description;
         $this->role = "Member";
-
-        $dbc = new Database();
-        $this->db = $dbc->getMysqli();
     }
 
 
-    function postComment(int $id_anime, string $comment) {
+    function postComment(Animanga $animanga, string $comment) {
         //
     }
     function modifyComment(int $id, string $comment) {
@@ -34,7 +44,7 @@ class Member {
     function eraseComment(int $id) {
         //
     }
-    function postNote(int $id_anime, int $note) {
+    function postNote(Animanga $animanga, int $note) {
         //
     }
     function modifyNote(int $id, int $note) {
@@ -69,8 +79,8 @@ class Member {
     function setDescrption(string $description) {
         $this->description = $description;
     }
-    function getNotes() { return $this->notes; }
-    function getComments() { return $this->comments; }
+    //function getNotes() { return $this->notes; }
+    //function getComments() { return $this->comments; }
     function getLastConnection() { return $this->last_connection; }
     function setLastConnection(string $last_connection) {
         $this->last_connection = $last_connection;

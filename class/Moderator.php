@@ -1,9 +1,16 @@
 <?php
 include "./Member.php";
-include "../config/database.php";
 class Moderator extends Member {
-    function __construct($id) {
-        parent::__construct($id);
+    function __construct(
+        int $id,
+        string $username,
+        string $email,
+        string $password,
+        string $profile_image,
+        string $back_image,
+        string $description
+    ) {
+        parent::__construct($id, $username, $email, $password, $profile_image, $back_image, $description);
         $this->role = "Moderator";
     }
     function memberList() {
