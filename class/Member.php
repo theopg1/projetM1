@@ -1,4 +1,5 @@
 <?php
+include "../config/database.php";
 class Member {
     private $id;
     private $username;
@@ -16,6 +17,9 @@ class Member {
     function __construct($id) {
         $this->id = $id;
         $this->role = "Member";
+
+        $dbc = new Database();
+        $db = $dbc->getMysqli();
     }
 
 
