@@ -10,10 +10,12 @@ class Member {
     private $notes;
     private $comments;
     private $last_connection;
+    private $role;
 
 
     function __construct($id) {
         $this->id = $id;
+        $this->role = "Member";
     }
 
 
@@ -56,5 +58,6 @@ class Member {
     function getComments() { return $this->comments; }
     function getLastConnection() { return $this->last_connection; }
     function setLastConnection($last_connection) { $this->last_connection = $last_connection; }
+    function getRole() { return $this->role; }
 }
 ?>
