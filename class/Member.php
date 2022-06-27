@@ -25,7 +25,7 @@ class Member {
     }
 
 
-    function postComment(string $comment) {
+    function postComment(int $id_anime, string $comment) {
         //
     }
     function modifyComment(int $id, string $comment) {
@@ -34,7 +34,7 @@ class Member {
     function eraseComment(int $id) {
         //
     }
-    function postNote(int $note) {
+    function postNote(int $id_anime, int $note) {
         //
     }
     function modifyNote(int $id, int $note) {
