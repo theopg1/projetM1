@@ -20,8 +20,8 @@ class Member {
         $this->id = $id;
         $this->role = "Member";
 
-        $dbc = new Database();
-        $this->db = $dbc->getMysqli();
+        $dbc = new DatabaseSingleton();
+        $this->db = $dbc->getDatabase();
     }
 
 
