@@ -3,11 +3,8 @@ include "./Member.php";
 include "../config/database.php";
 class Moderator extends Member {
     function __construct($id) {
-        $this->id = $id;
+        parent::__construct($id);
         $this->role = "Moderator";
-
-        $dbc = new Database();
-        $db = $dbc->getMysqli();
     }
     function memberList() {
         //
