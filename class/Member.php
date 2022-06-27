@@ -32,6 +32,9 @@ class Member {
         $this->back_image = $back_image;
         $this->description = $description;
         $this->role = "Member";
+
+        $dbc = new DatabaseSingleton();
+        $this->db = $dbc->getDatabase();
     }
 
 
