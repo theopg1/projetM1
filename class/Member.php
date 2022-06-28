@@ -1,44 +1,63 @@
 <?php
 include "./Animanga.php";
-include "../config/database.php";
+include "./DatabaseSingleton.php";
 class Member {
     protected int $id;
+    protected string $first_name;
+    protected string $last_name;
     protected string $username;
     protected string $email;
     protected string $password;
-    protected string $profile_image;
-    protected string $back_image;
-    protected string $description;
+    protected $profile_image;
+    protected $back_image;
+    protected $description;
     //protected $notes;
     //protected $comments;
     protected string $last_connection;
-    protected string $role;
 
 
     function __construct(
         int $id,
+        string $first_name,
+        string $last_name,
         string $username,
         string $email,
         string $password,
-        string $profile_image,
-        string $back_image,
-        string $description
+        string $profile_image = null,
+        string $back_image = null,
+        string $description = null
     ) {
         $this->id = $id;
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
         $this->profile_image = $profile_image;
         $this->back_image = $back_image;
         $this->description = $description;
-        $this->role = "Member";
 
         $dbc = new DatabaseSingleton();
         $this->db = $dbc->getDatabase();
     }
 
+    function __toString() {
+        $str = "Member " . $this->id . " {\r\n";
+        $str .= "    First Name : " . $this->first_name . "\r\n";
+        $str .= "    Username : " . $this->username . "\r\n";
+        $str .= "    Last Name : " . $this->last_name . "\r\n";
+        $str .= "    Email : " . $this->email . "\r\n\r\n";
+        $str .= "    Description : " . $this->description . "\r\n";
+        $str .= "}";
 
-    function postComment(Animanga $animanga, string $comment) {
+        return $str;
+    }
+
+
+    function postCommentById(int $id_animanga, string $comment) {
+        //
+    }
+    function postCommentByAnimanga(Animanga $animanga, string $comment) {
         //
     }
     function modifyComment(int $id, string $comment) {
@@ -47,7 +66,10 @@ class Member {
     function eraseComment(int $id) {
         //
     }
-    function postNote(Animanga $animanga, int $note) {
+    function postNoteById(int $id_animanga, int $note) {
+        //
+    }
+    function postNoteByAnimanga(Animanga $animanga, int $note) {
         //
     }
     function modifyNote(int $id, int $note) {

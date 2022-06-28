@@ -5,13 +5,14 @@ include "../config/database.php";
 class DatabaseSingleton{
 
     private static $_database = false;
+    private static $db = null;
 
     public static function getDatabase(){
         if(!self::$_database){
             $dbc = new Database();
-            $database =$dbc->getMysqli();
+            self::$db =$dbc->getMysqli();
         }
-        return self::$_database;
+        return self::$db;
     }
 
 }
