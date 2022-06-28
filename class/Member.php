@@ -16,29 +16,23 @@ class Member {
     protected string $last_connection;
 
 
-    function __construct(
-        int $id,
-        string $first_name,
-        string $last_name,
-        string $username,
-        string $email,
-        string $password,
-        string $profile_image = null,
-        string $back_image = null,
-        string $description = null
-    ) {
-        $this->id = $id;
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
-        $this->username = $username;
-        $this->email = $email;
-        $this->password = $password;
-        $this->profile_image = $profile_image;
-        $this->back_image = $back_image;
-        $this->description = $description;
+    function __construct($row) {
+        $this->id = $row["ID"];
+        $this->first_name = $row["FIRST_NAME"];
+        $this->last_name = $row["LAST_NAME"];
+        $this->username = $row["USERNAME"];
+        $this->email = $row["EMAIL"];
+        $this->password = $row["PASSWORD"];
+        $this->profile_image = $row["PROFIL_PICTURE"];
+        $this->back_image = $row["BACKGROUND_PICTURE"];
+        $this->description = $row["DESCRIPTION"];
 
         $dbc = new DatabaseSingleton();
         $this->db = $dbc->getDatabase();
+    }
+
+    function __destruct() {
+        $this->db->close();
     }
 
     function __toString() {
@@ -83,32 +77,39 @@ class Member {
     function getUsername() { return $this->username; }
     function setUsername(string $username) {
         $this->username = $username;
+        $this->db->query("UPDATE users SET username='" . $username . "' WHILE id=" . $this->id);
     }
     function getEmail() { return $this->email; }
     function setEmail(string $email) {
         $this->email = $email;
+        $this->db->query("UPDATE users SET email='" . $email . "' WHILE id=" . $this->id);
     }
     function getPassword() { return $this->password; }
     function setPassword(string $password) {
         $this->password = $password;
+        $this->db->query("UPDATE users SET password='" . $password . "' WHILE id=" . $this->id);
     }
     function getProfileImage() { return $this->profile_image; }
     function setProfileImage(string $profile_image) {
         $this->profile_image = $profile_image;
+        $this->db->query("UPDATE users SET profile_picture='" . $profile_image . "' WHILE id=" . $this->id);
     }
     function getBackImage() { return $this->back_image; }
     function setBackImage(string $back_image) {
         $this->back_image = $back_image;
+        $this->db->query("UPDATE users SET background_picture='" . $back_image . "' WHILE id=" . $this->id);
     }
     function getDescription() { return $this->description; }
     function setDescrption(string $description) {
         $this->description = $description;
+        $this->db->query("UPDATE users SET description='" . $description . "' WHILE id=" . $this->id);
     }
     //function getNotes() { return $this->notes; }
     //function getComments() { return $this->comments; }
     function getLastConnection() { return $this->last_connection; }
-    function setLastConnection(string $last_connection) {
-        $this->last_connection = $last_connection;
+    function connected() {
+        $this->last_connection = date("Y-m-d\ZH:i:s");
+        $this->db->query("UPDATE users SET connection='" . $this->last_connection . "' WHILE id=" . $this->id);
     }
     function getRole() { return $this->role; }
 }
