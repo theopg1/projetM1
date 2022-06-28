@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller\Admin;
+use App\Entity\Animanga;
 
 use App\Entity\Manga;
 use App\Entity\User;
@@ -39,5 +40,6 @@ class BackOfficeController extends AbstractDashboardController
 
         yield MenuItem::section('Déconnexion');
         yield MenuItem::linkToLogout('Se déconnecter', 'fa fa-sign-out');
+        yield MenuItem::linkToCrud('Animanga', 'fas fa-list', Animanga::class);
     }
 }
