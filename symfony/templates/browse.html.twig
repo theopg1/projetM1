@@ -9,12 +9,12 @@
         <li class="d-inline">
             <a class="btn btn-primary btn-sm" href="{{ path('genreAnimanga', {
                 slug:'comedy'
-            }, false) }}">Comedy</a>
+            }) }}">Comedy</a>
         </li>
         <li class="d-inline">
             <a class="btn btn-primary btn-sm" href="{{ path('genreAnimanga', {
                 slug:'action'
-            }, true) }}">Action</a>
+            }) }}">Action</a>
         </li>
         <li class="d-inline">
             <a class="btn btn-primary btn-sm" href="{{ path('genreAnimanga', {
@@ -24,29 +24,20 @@
     </ul>
 
     <div>
-        <h2 class="mt-5">Mixes</h2>
+        <h2 class="mt-5">Animangas</h2>
         <div class="row">
+            {% for animanga in animangas %}
             <div class="col col-md-4">
                 <div class="mixed-vinyl-container p-3 text-center">
-                    <img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img">
-                    <p class="mt-2"><strong>PB & Jams</strong></p>
-                    <span>14 Tracks</span> | <span>Rock</span>
+                    <a href="{{ path('animanga', {
+                        slug: animanga.id
+                    }) }}"><img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img" >
+                    </a>
+                    <p class="mt-2"><strong>{{ animanga.nom }}</strong></p>
+                    <span>{{ animanga.episodes }}</span> | <span>{{ animanga.genre }}</span>
                 </div>
             </div>
-            <div class="col col-md-4">
-                <div class="mixed-vinyl-container p-3 text-center">
-                    <img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img">
-                    <p class="mt-2"><strong>Put a Hex on your Ex</strong></p>
-                    <span>8 Tracks</span> | <span>Heavy Metal</span>
-                </div>
-            </div>
-            <div class="col col-md-4">
-                <div class="mixed-vinyl-container p-3 text-center">
-                    <img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img">
-                    <p class="mt-2"><strong>Spice Grills - Summer Tunes</strong></p>
-                    <span>10 Tracks</span> | <span>Pop</span>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
