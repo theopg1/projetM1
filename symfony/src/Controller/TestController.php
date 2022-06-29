@@ -34,11 +34,35 @@ class TestController extends AbstractController
      */
     public function browse(string $slug = null) : Response
     {
+        $animangas = [
+            ['id' => '1', 'nom' => 'Black Clover', 'episodes' => '24', 'genre' => 'Action'],
+            ['id' => '2','nom' => 'One Piece', 'episodes' => '850', 'genre' => 'Drama'],
+            ['id' => '3','nom' => 'Bleach', 'episodes' => '366', 'genre' => 'Action'],
+            ['id' => '4','nom' => 'Naruto', 'episodes' => '574', 'genre' => 'Comedie'],
+            ['id' => '5','nom' => 'Eyeshield21', 'episodes' => '64', 'genre' => 'Drama'],
+        ];
 
         $genre = $slug ? str_replace('-', ' ', $slug) : null;
 
         return $this->render('browse.html.twig', [
             'genre' => $genre,
+            'title' => 'Animanga',
+            'animangas' => $animangas,
+        ]);
+    }
+
+    /**
+     * @Route("/animanga/{slug}", name="animanga")
+     */
+    public function animanga(string $slug = null) : Response
+    {
+
+        $id = $slug ? : null;
+
+        return $this->render('animanga.html.twig', [
+            'genre' => '$genre',
+            'title' => 'Animanga',
+            'animangas' => '$animangas',
         ]);
     }
 
