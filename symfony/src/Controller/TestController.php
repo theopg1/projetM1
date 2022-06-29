@@ -2,26 +2,21 @@
 
 namespace App\Controller;
 
+use Animanga;
+use App\Repository\AnimangaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-
 class TestController extends AbstractController
 {
 
     /**
      * @Route("/", name="homePage")
      */
-    public function homepage() : Response
+    public function homepage(AnimangaRepository $repo) : Response
     {
-        $animangas = [
-            ['nom' => 'Black Clover', 'episodes' => '24'],
-            ['nom' => 'One Piece', 'episodes' => '850'],
-            ['nom' => 'Bleach', 'episodes' => '366'],
-            ['nom' => 'Naruto', 'episodes' => '574'],
-            ['nom' => 'Eyeshield21', 'episodes' => '64'],
-        ];
 
+        $animangas = $repo->findAll();
 
        return $this->render('homepage.html.twig', [
            'title' => 'Animanga',
@@ -32,9 +27,8 @@ class TestController extends AbstractController
     /**
      * @Route("/browse/{slug}", name="genreAnimanga")
      */
-    public function browse(string $slug = null) : Response
+    public function browse(string $slug = null,AnimangaRepository $repo) : Response
     {
-
         $genre = $slug ? str_replace('-', ' ', $slug) : null;
 
         return $this->render('browse.html.twig', [
