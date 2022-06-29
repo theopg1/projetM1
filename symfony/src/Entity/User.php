@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -33,6 +35,41 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $username;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $profile_image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $back_image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $last_connection;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $feedbacks;
+
+    public function __construct()
+    {
+        $this->feedbacks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -113,5 +150,95 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Avis[]
+     */
+    public function getFeedbacks(): Collection
+    {
+        return $this->feedbacks;
+    }
+
+    public function addFeedback(Avis $feedback): self
+    {
+        if (!$this->feedbacks->contains($feedback)) {
+            $this->feedbacks[] = $feedback;
+            $feedback->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFeedback(Avis $feedback): self
+    {
+        if ($this->feedbacks->removeElement($feedback)) {
+            // set the owning side to null (unless already changed)
+            if ($feedback->getUser() === $this) {
+                $feedback->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getProfileImage(): ?string
+    {
+        return $this->profile_image;
+    }
+
+    public function setProfileImage(?string $profile_image): self
+    {
+        $this->profile_image = $profile_image;
+
+        return $this;
+    }
+
+    public function getBackImage(): ?string
+    {
+        return $this->back_image;
+    }
+
+    public function setBackImage(?string $back_image): self
+    {
+        $this->back_image = $back_image;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getLastConnection(): ?string
+    {
+        return $this->last_connection;
+    }
+
+    public function setLastConnection(?string $last_connection): self
+    {
+        $this->last_connection = $last_connection;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->getEmail();
     }
 }

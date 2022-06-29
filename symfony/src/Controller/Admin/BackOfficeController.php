@@ -2,7 +2,8 @@
 
 namespace App\Controller\Admin;
 use App\Entity\Animanga;
-
+use App\Entity\Avis;
+use App\Entity\Genres;
 use App\Entity\Manga;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -33,13 +34,15 @@ class BackOfficeController extends AbstractDashboardController
         yield MenuItem::section('Accueil');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
-        yield MenuItem::section('Administration Utilisateurs');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class);
+        yield MenuItem::section('Administration Utilisateurs')->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class)->setPermission('ROLE_ADMIN');
 
-        yield MenuItem::section('Administration Données');
+        yield MenuItem::section('Administration Données')->setPermission('ROLE_MODERATOR');
+        yield MenuItem::linkToCrud('Animanga', 'fas fa-list', Animanga::class)->setPermission('ROLE_MODERATOR');
+        yield MenuItem::linkToCrud('Avis', 'fas fa-star', Avis::class)->setPermission('ROLE_MODERATOR');
+        yield MenuItem::linkToCrud('Genres', 'fas fa-book', Genres::class)->setPermission('ROLE_MODERATOR');
 
         yield MenuItem::section('Déconnexion');
         yield MenuItem::linkToLogout('Se déconnecter', 'fa fa-sign-out');
-        yield MenuItem::linkToCrud('Animanga', 'fas fa-list', Animanga::class);
     }
 }

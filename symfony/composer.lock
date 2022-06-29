@@ -1882,16 +1882,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "93ebd0014cab80c4ea9f5e297ea48672f1b87706"
+                "reference": "77a32518733312af16a44300404e945338981de3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/93ebd0014cab80c4ea9f5e297ea48672f1b87706",
-                "reference": "93ebd0014cab80c4ea9f5e297ea48672f1b87706",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/77a32518733312af16a44300404e945338981de3",
+                "reference": "77a32518733312af16a44300404e945338981de3",
                 "shasum": ""
             },
             "require": {
@@ -1926,9 +1926,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.6.0"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.6.1"
             },
-            "time": "2022-01-04T19:58:01+00:00"
+            "time": "2022-03-15T21:29:03+00:00"
         },
         {
             "name": "psr/cache",
@@ -5087,16 +5087,16 @@
         },
         {
             "name": "symfony/property-info",
-            "version": "v4.4.37",
+            "version": "v4.4.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-info.git",
-                "reference": "cd9a8c2e3d19d4d4b9475e9d448cb4fbaee0e495"
+                "reference": "1b253708acc997978e4a528abd50cccd2f6a158b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-info/zipball/cd9a8c2e3d19d4d4b9475e9d448cb4fbaee0e495",
-                "reference": "cd9a8c2e3d19d4d4b9475e9d448cb4fbaee0e495",
+                "url": "https://api.github.com/repos/symfony/property-info/zipball/1b253708acc997978e4a528abd50cccd2f6a158b",
+                "reference": "1b253708acc997978e4a528abd50cccd2f6a158b",
                 "shasum": ""
             },
             "require": {
@@ -5156,7 +5156,7 @@
                 "validator"
             ],
             "support": {
-                "source": "https://github.com/symfony/property-info/tree/v4.4.37"
+                "source": "https://github.com/symfony/property-info/tree/v4.4.42"
             },
             "funding": [
                 {
@@ -5172,7 +5172,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:41:36+00:00"
+            "time": "2022-05-17T08:53:34+00:00"
         },
         {
             "name": "symfony/proxy-manager-bridge",
@@ -6718,21 +6718,21 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.10.0",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25"
+                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/6964c76c7804814a842473e0c8fd15bab0f18e25",
-                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/11cb2199493b2f8a3b53e7f19068fc6aac760991",
+                "reference": "11cb2199493b2f8a3b53e7f19068fc6aac760991",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2 || ^8.0",
-                "symfony/polyfill-ctype": "^1.8"
+                "ext-ctype": "*",
+                "php": "^7.2 || ^8.0"
             },
             "conflict": {
                 "phpstan/phpstan": "<0.12.20",
@@ -6770,22 +6770,22 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/1.10.0"
+                "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
-            "time": "2021-03-09T10:59:23+00:00"
+            "time": "2022-06-03T18:03:27+00:00"
         },
         {
             "name": "zircote/swagger-php",
-            "version": "4.2.6",
+            "version": "4.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zircote/swagger-php.git",
-                "reference": "2d12005ff3b8882e45ece835f0bb5cdccca19929"
+                "reference": "fd8f1eb8d0165c7a668f307fbccbf3adf33f4017"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/2d12005ff3b8882e45ece835f0bb5cdccca19929",
-                "reference": "2d12005ff3b8882e45ece835f0bb5cdccca19929",
+                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/fd8f1eb8d0165c7a668f307fbccbf3adf33f4017",
+                "reference": "fd8f1eb8d0165c7a668f307fbccbf3adf33f4017",
                 "shasum": ""
             },
             "require": {
@@ -6799,7 +6799,9 @@
             "require-dev": {
                 "composer/package-versions-deprecated": "^1.11",
                 "friendsofphp/php-cs-fixer": "^2.17 || ^3.0",
-                "phpunit/phpunit": ">=8"
+                "phpstan/phpstan": "^1.6",
+                "phpunit/phpunit": ">=8",
+                "vimeo/psalm": "^4.23"
             },
             "bin": [
                 "bin/openapi"
@@ -6845,9 +6847,9 @@
             ],
             "support": {
                 "issues": "https://github.com/zircote/swagger-php/issues",
-                "source": "https://github.com/zircote/swagger-php/tree/4.2.6"
+                "source": "https://github.com/zircote/swagger-php/tree/4.4.5"
             },
-            "time": "2022-02-04T21:53:17+00:00"
+            "time": "2022-06-02T21:05:02+00:00"
         }
     ],
     "packages-dev": [

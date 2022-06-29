@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnimangaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,7 +45,7 @@ class Animanga
     private $note;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="smallint", nullable=true)
      */
     private $releaseDate;
 
@@ -71,6 +73,23 @@ class Animanga
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $lastModification;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="animanga", orphanRemoval=true)
+     */
+    private $feedbacks;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Genres::class, inversedBy="animangas")
+     */
+    private $genres;
+
+    public function __construct()
+    {
+        $this->feedbacks = new ArrayCollection();
+        $this->genres = new ArrayCollection();
+        $this->lastModification = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -137,17 +156,7 @@ class Animanga
         return $this;
     }
 
-    public function getReleaseDate(): ?\DateTimeInterface
-    {
-        return $this->releaseDate;
-    }
 
-    public function setReleaseDate(?\DateTimeInterface $releaseDate): self
-    {
-        $this->releaseDate = $releaseDate;
-
-        return $this;
-    }
 
     public function getTomes(): ?int
     {
@@ -205,6 +214,77 @@ class Animanga
     public function setLastModification(?\DateTimeInterface $lastModification): self
     {
         $this->lastModification = $lastModification;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Avis[]
+     */
+    public function getFeedbacks(): Collection
+    {
+        return $this->feedbacks;
+    }
+
+    public function addFeedback(Avis $feedback): self
+    {
+        if (!$this->feedbacks->contains($feedback)) {
+            $this->feedbacks[] = $feedback;
+            $feedback->setAnimanga($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFeedback(Avis $feedback): self
+    {
+        if ($this->feedbacks->removeElement($feedback)) {
+            // set the owning side to null (unless already changed)
+            if ($feedback->getAnimanga() === $this) {
+                $feedback->setAnimanga(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Genres[]
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(Genres $genre): self
+    {
+        if (!$this->genres->contains($genre)) {
+            $this->genres[] = $genre;
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genres $genre): self
+    {
+        $this->genres->removeElement($genre);
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
+    public function getReleaseDate(): ?int
+    {
+        return $this->releaseDate;
+    }
+
+    public function setReleaseDate(?int $releaseDate): self
+    {
+        $this->releaseDate = $releaseDate;
 
         return $this;
     }
