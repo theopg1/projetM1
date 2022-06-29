@@ -36,6 +36,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    function postCommentById(int $id_animanga, string $comment) {
+        //
+    }
+    function modifyComment(int $id, string $comment) {
+        //
+    }
+    function eraseComment(int $id) {
+        //
+    }
+    function postNoteById(int $id_animanga, int $note) {
+        //
+    }
+    function modifyNote(int $id, int $note) {
+        //
+    }
+    function eraseNote(int $id) {
+        //
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
