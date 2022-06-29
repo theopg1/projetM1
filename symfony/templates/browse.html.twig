@@ -27,16 +27,39 @@
         <h2 class="mt-5">Animangas</h2>
         <div class="row">
             {% for animanga in animangas %}
-            <div class="col col-md-4">
-                <div class="mixed-vinyl-container p-3 text-center">
+                {% if genre is not null %}
+                    {% if animanga.genre|lower == genre|lower %}
+            <div class="col col-md-4" style="margin-bottom: 3em;">
+                <div class="animanga-container p-3 text-center">
                     <a href="{{ path('animanga', {
                         slug: animanga.id
-                    }) }}"><img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img" >
+                    }) }}"><img class="imageListe" src="/images/animangas/{{ animanga.id }}.jpg" data-src="/images/animangas/{{ animanga.id }}.jpg" alt="Square placeholder img" >
                     </a>
-                    <p class="mt-2"><strong>{{ animanga.nom }}</strong></p>
+                    <a href="{{ path('animanga', {
+                        slug: animanga.id
+                    }) }}">
+                        <p class="mt-2" ><strong>{{ animanga.nom }}</strong></p>
+                    </a>
                     <span>{{ animanga.episodes }}</span> | <span>{{ animanga.genre }}</span>
                 </div>
             </div>
+                {% endif %}
+                {% else %}
+                    <div class="col col-md-4" style="margin-bottom: 3em;">
+                        <div class="mixed-vinyl-container p-3 text-center">
+                            <a href="{{ path('animanga', {
+                                slug: animanga.id
+                            }) }}"><img class="imageListe" src="/images/animangas/{{ animanga.id }}.jpg" data-src="/images/animangas/{{ animanga.id }}.jpg" alt="Square placeholder img" >
+                            </a>
+                            <a href="{{ path('animanga', {
+                                slug: animanga.id
+                            }) }}">
+                                <p class="mt-2" ><strong>{{ animanga.nom }}</strong></p>
+                            </a>
+                            <span>{{ animanga.episodes }}</span> | <span>{{ animanga.genre }}</span>
+                        </div>
+                    </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
