@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Controller\Admin;
+use App\Entity\Animanga;
 
+use App\Entity\Manga;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -11,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BackOfficeController extends AbstractDashboardController
 {
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/backoffice", name="backoffice")
      */
     public function index(): Response
     {
@@ -25,8 +28,18 @@ class BackOfficeController extends AbstractDashboardController
     }
 
     public function configureMenuItems(): iterable
-    {
+    {        
+        
+        yield MenuItem::section('Accueil');
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+
+        yield MenuItem::section('Administration Utilisateurs');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class);
+
+        yield MenuItem::section('Administration Données');
+
+        yield MenuItem::section('Déconnexion');
+        yield MenuItem::linkToLogout('Se déconnecter', 'fa fa-sign-out');
+        yield MenuItem::linkToCrud('Animanga', 'fas fa-list', Animanga::class);
     }
 }
