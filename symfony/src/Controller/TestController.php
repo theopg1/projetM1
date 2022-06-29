@@ -15,17 +15,18 @@ class TestController extends AbstractController
     public function homepage() : Response
     {
         $animangas = [
-            ['nom' => 'Black Clover', 'episodes' => '24'],
-            ['nom' => 'One Piece', 'episodes' => '850'],
-            ['nom' => 'Bleach', 'episodes' => '366'],
-            ['nom' => 'Naruto', 'episodes' => '574'],
-            ['nom' => 'Eyeshield21', 'episodes' => '64'],
+            ['id' => '1', 'nom' => 'Black Clover', 'episodes' => '24', 'genre' => 'Action'],
+            ['id' => '2','nom' => 'One Piece', 'episodes' => '850', 'genre' => 'Drama'],
+            ['id' => '3','nom' => 'Bleach', 'episodes' => '366', 'genre' => 'Action'],
+            ['id' => '4','nom' => 'Naruto', 'episodes' => '574', 'genre' => 'Comedy'],
+            ['id' => '5','nom' => 'Eyeshield21', 'episodes' => '64', 'genre' => 'Comedy'],
         ];
 
 
        return $this->render('homepage.html.twig', [
-           'title' => 'Animanga',
-           'animangas' => $animangas,
+           'title' => '> Nos Mangas et Animes :',
+           'topMangas' => $animangas,
+           'topAnimes' => $animangas,
        ]);
     }
 
@@ -38,8 +39,9 @@ class TestController extends AbstractController
             ['id' => '1', 'nom' => 'Black Clover', 'episodes' => '24', 'genre' => 'Action'],
             ['id' => '2','nom' => 'One Piece', 'episodes' => '850', 'genre' => 'Drama'],
             ['id' => '3','nom' => 'Bleach', 'episodes' => '366', 'genre' => 'Action'],
-            ['id' => '4','nom' => 'Naruto', 'episodes' => '574', 'genre' => 'Comedie'],
-            ['id' => '5','nom' => 'Eyeshield21', 'episodes' => '64', 'genre' => 'Drama'],
+            ['id' => '4','nom' => 'Naruto', 'episodes' => '574', 'genre' => 'Comedy'],
+            ['id' => '5','nom' => 'Eyeshield21', 'episodes' => '64', 'genre' => 'Comedy'],
+            ['id' => '6','nom' => 'Black Butler', 'episodes' => '12', 'genre' => 'Drama'],
         ];
 
         $genre = $slug ? str_replace('-', ' ', $slug) : null;
