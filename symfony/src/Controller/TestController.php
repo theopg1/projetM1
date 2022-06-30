@@ -8,6 +8,8 @@ use App\Repository\AvisRepository;
 use App\Repository\UserRepository;
 use App\Entity\Avis;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\Expr\Comparison;
+use Doctrine\Common\Collections\Criteria;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,6 +40,27 @@ class TestController extends AbstractController
     }
 
     /**
+     * @Route("/search/{slug}", name="searchAnimanga")
+     */
+    public function search(AnimangaRepository $repository, string $slug = null) : Response
+    {
+        $searchSlug = $slug ? str_replace('_', ' ', $slug) : null;
+
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $expr = new Comparison('title', Comparison::CONTAINS, $searchSlug);
+        $criteria->where($expr);
+        $criteria->orderBy(['title' => Criteria::ASC]);
+
+        $result = $repository->matching($criteria);
+
+        return $this->render('search.html.twig', [
+            'searchSlug' => $searchSlug,
+            'title' => 'Animangas',
+            'animangas' => $result,
+        ]);
+    }
+
+    /**
      * @Route("/browse/{slug}", name="genreAnimanga")
      */
     public function browse(AnimangaRepository $repository, GenresRepository $genresRepository, string $slug = null) : Response
@@ -45,28 +68,14 @@ class TestController extends AbstractController
         $animangas = $repository->findBy([],['title' => 'ASC']);
         $genres = $genresRepository->findBy([],['label' => 'ASC']);
 
+
+
         $genreSlug = $slug ? str_replace('-', ' ', $slug) : null;
 
         return $this->render('browse.html.twig', [
             'path' => 'genreAnimanga',
             'genreSlug' => $genreSlug,
             'genres' => $genres,
-            'title' => 'Animangas',
-            'animangas' => $animangas,
-        ]);
-    }
-
-    /**
-     * @Route("/search/{slug}", name="searchAnimanga")
-     */
-    public function search(AnimangaRepository $repository, string $slug = null) : Response
-    {
-        $searchSlug = $slug ? str_replace('_', ' ', $slug) : null;
-
-        $animangas = $repository->findBy(['title' => $searchSlug],['title' => 'ASC']);
-
-        return $this->render('search.html.twig', [
-            'searchSlug' => $searchSlug,
             'title' => 'Animangas',
             'animangas' => $animangas,
         ]);
