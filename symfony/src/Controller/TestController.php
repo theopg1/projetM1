@@ -34,10 +34,17 @@ class TestController extends AbstractController
             ['id' => '5','nom' => 'Eyeshield21', 'episodes' => '64', 'genre' => 'Comedy'],
         ];
 
+        $form = $this->createFormBuilder()->add('search', TextType::class)->getForm();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirect("\/search/".$form["slug"]);
+        }
+
        return $this->render('homepage.html.twig', [
            'title' => '> Nos Mangas et Animes :',
            'topMangas' => $animangas,
            'topAnimes' => $animangas,
+           'form' => $form->createView(),
        ]);
     }
 
