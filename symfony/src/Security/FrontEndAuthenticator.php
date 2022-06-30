@@ -5,7 +5,12 @@ use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class FrontEndAuthenticator{
-    public function isUserValid(UserRepository $userRepo){
+    public function getUserId(UserRepository $userRepo){
+
+        return $this->getUser($userRepo)["id"];
+    }
+
+    public function getUser(UserRepository $userRepo){
 
         $session = new Session();
 
@@ -16,6 +21,6 @@ class FrontEndAuthenticator{
         if(!$user){
             return false;
         }
-        return true;
+        return $user;
     }
 }
