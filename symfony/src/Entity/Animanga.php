@@ -22,7 +22,7 @@ class Animanga
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"name", "animanga"})
+     * @Groups({"name", "animanga", "top"})
      */
     private $title;
 
@@ -48,7 +48,7 @@ class Animanga
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
-     * @Groups({"animanga"})
+     * @Groups({"animanga", "top"})
      */
     private $note;
 
@@ -60,13 +60,13 @@ class Animanga
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
-     * @Groups({"animanga"})
+     * @Groups({"animanga", "top"})
      */
     private $tomes;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
-     * @Groups({"animanga"})
+     * @Groups({"animanga", "top"})
      */
     private $episodes;
 
@@ -78,7 +78,7 @@ class Animanga
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"animanga"})
+     * @Groups({"animanga", "top"})
      */
     private $image;
 

@@ -39,6 +39,25 @@ class AnimangaController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/api/animangas/top", name="Top_Animangas", methods={"GET"})
+     * @OA\Response(
+     *     response=200,
+     *     description="Retourne la liste des 5 Animangas les mieux notés",
+     *     @Model(type=Animanga::class)
+     * )
+     */
+    public function top(AnimangaRepository $repository): Response
+    {
+        $animangas = $repository->findAll();
+        usort($animangas, function($a, $b) {
+            return $a->getNote() > $b->getNote() ? -1 : 1;
+        });
+        array_slice($animangas, 0, 5);
+        return $this->json($animangas, 200, [], [
+            "groups" => ["top"]
+        ]);
+    }
 
     /**
      * @Route("/api/animangas/names", name="Animangas_Names", methods={"GET"})
