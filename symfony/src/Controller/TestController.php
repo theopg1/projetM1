@@ -93,9 +93,9 @@ class TestController extends AbstractController
     {
         $userId = 1;
         $id = $slug ? : null;
-
+        
         $animanga = $repository->findOneBy(['id' => $id]);
-        $avisList = $avisRepo->findBy(["userId"=> $userId]);
+        $avisList = $avisRepo->findBy(["animanga"=> $animanga]);
 
         $entityManager = $doctrine->getManager();
         $form = $this->createFormBuilder()->add('task', TextType::class)->getForm();
@@ -107,6 +107,7 @@ class TestController extends AbstractController
 
             $avis = new Avis();
             $avis->setComment($form["task"]->getData());
+            $avis->setAnimanga($animanga);
             $avis->setUser($user);
 
             $entityManager->persist($avis);
