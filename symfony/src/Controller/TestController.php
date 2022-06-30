@@ -117,7 +117,7 @@ class TestController extends AbstractController
 
         return $this->render('animanga.html.twig', [
             'title' => 'Animanga',
-            'animangas' => '$animangas',
+            'animanga' => $animanga,
             'avis' => $avisList,
             'form' => $form->createView(),
         ]);
