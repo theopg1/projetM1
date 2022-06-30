@@ -58,7 +58,7 @@ class TestController extends AbstractController
      */
     public function browseManga(AnimangaRepository $repository, string $slug = null) : Response
     {
-        $animangas = $repository->findOneBy(['type' => 'Manga']);
+        $animangas = $repository->findBy(['type' => 'Manga']);
 
         $genre = $slug ? str_replace('-', ' ', $slug) : null;
 
@@ -74,7 +74,7 @@ class TestController extends AbstractController
      */
     public function browseAnime(AnimangaRepository $repository, string $slug = null) : Response
     {
-        $animangas = $repository->findOneBy(['type' => 'Anime']);
+        $animangas = $repository->findBy(['type' => 'Anime']);
 
         $genre = $slug ? str_replace('-', ' ', $slug) : null;
 
