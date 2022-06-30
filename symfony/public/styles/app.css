@@ -23,13 +23,11 @@ body {
 }
 
 .imageListe {
-    height: 325px;
-    width: 200px;
+    height: 300px;
     object-fit: cover;
 }
 
 .imageAnimanga {
-    height: 488px;
     width: 300px;
     object-fit: cover;
 }
@@ -38,6 +36,7 @@ body {
     background: rgb(23,36,44);
     background: linear-gradient(180deg, rgba(23,36,44,1) 1%, rgba(34,47,54,1) 97%);
     border-radius: 5px;
+    height: 100%;
 }
 
 header {
