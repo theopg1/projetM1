@@ -32,5 +32,14 @@ body {
     background: rgb(23,36,44);
     background: linear-gradient(180deg, rgba(23,36,44,1) 1%, rgba(34,47,54,1) 97%);
     border-radius: 5px;
+}
 
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+body {
+    padding-top: 125px;
 }
