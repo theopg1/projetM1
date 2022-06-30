@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Repository\AnimangaRepository;
-use App\Entity\Avis;
+use App\Repository\GenresRepository;
 use App\Repository\AvisRepository;
 use App\Repository\UserRepository;
+use App\Entity\Avis;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\Request;
 
 class TestController extends AbstractController
 {
@@ -40,14 +41,17 @@ class TestController extends AbstractController
     /**
      * @Route("/browse/{slug}", name="genreAnimanga")
      */
-    public function browse(AnimangaRepository $repository, string $slug = null) : Response
+    public function browse(AnimangaRepository $repository, GenresRepository $genresRepository, string $slug = null) : Response
     {
         $animangas = $repository->findall();
+        $genres = $genresRepository->findall();
 
-        $genre = $slug ? str_replace('-', ' ', $slug) : null;
+        $genreSlug = $slug ? str_replace('-', ' ', $slug) : null;
 
         return $this->render('browse.html.twig', [
-            'genre' => $genre,
+            'path' => 'genreAnimanga',
+            'genreSlug' => $genreSlug,
+            'genres' => $genres,
             'title' => 'Animangas',
             'animangas' => $animangas,
         ]);
@@ -56,14 +60,17 @@ class TestController extends AbstractController
     /**
      * @Route("/browseManga/{slug}", name="genreManga")
      */
-    public function browseManga(AnimangaRepository $repository, string $slug = null) : Response
+    public function browseManga(AnimangaRepository $repository, GenresRepository $genresRepository, string $slug = null) : Response
     {
         $animangas = $repository->findBy(['type' => 'Manga']);
+        $genres = $genresRepository->findall();
 
-        $genre = $slug ? str_replace('-', ' ', $slug) : null;
+        $genreSlug = $slug ? str_replace('-', ' ', $slug) : null;
 
         return $this->render('browse.html.twig', [
-            'genre' => $genre,
+            'path' => 'genreManga',
+            'genreSlug' => $genreSlug,
+            'genres' => $genres,
             'title' => 'Mangas',
             'animangas' => $animangas,
         ]);
@@ -72,14 +79,17 @@ class TestController extends AbstractController
     /**
      * @Route("/browseAnime/{slug}", name="genreAnime")
      */
-    public function browseAnime(AnimangaRepository $repository, string $slug = null) : Response
+    public function browseAnime(AnimangaRepository $repository, GenresRepository $genresRepository, string $slug = null) : Response
     {
         $animangas = $repository->findBy(['type' => 'Anime']);
+        $genres = $genresRepository->findAllbyAsc();
 
-        $genre = $slug ? str_replace('-', ' ', $slug) : null;
+        $genreSlug = $slug ? str_replace('-', ' ', $slug) : null;
 
         return $this->render('browse.html.twig', [
-            'genre' => $genre,
+            'path' => 'genreAnime',
+            'genreSlug' => $genreSlug,
+            'genres' => $genres,
             'title' => 'Animes',
             'animangas' => $animangas,
         ]);
