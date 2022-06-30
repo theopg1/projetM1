@@ -34,11 +34,11 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/backlogout", name="backlogout")
-     */
-    public function logout()
-    {
+    // /**
+    //  * @Route("/backlogout", name="backlogout")
+    //  */
+    // public function logout()
+    // {
         
-    }
+    // }
 }

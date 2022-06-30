@@ -94,14 +94,15 @@ class Animanga
     private $feedbacks;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Genres::class, inversedBy="animangas")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $genres;
+
+
 
     public function __construct()
     {
         $this->feedbacks = new ArrayCollection();
-        $this->genres = new ArrayCollection();
         $this->lastModification = new \DateTime();
     }
 
@@ -262,29 +263,7 @@ class Animanga
         return $this;
     }
 
-    /**
-     * @return Collection|Genres[]
-     */
-    public function getGenres(): Collection
-    {
-        return $this->genres;
-    }
 
-    public function addGenre(Genres $genre): self
-    {
-        if (!$this->genres->contains($genre)) {
-            $this->genres[] = $genre;
-        }
-
-        return $this;
-    }
-
-    public function removeGenre(Genres $genre): self
-    {
-        $this->genres->removeElement($genre);
-
-        return $this;
-    }
 
     public function __toString()
     {
@@ -302,4 +281,17 @@ class Animanga
 
         return $this;
     }
+
+    public function getGenres(): ?string
+    {
+        return $this->genres;
+    }
+
+    public function setGenres(?string $genres): self
+    {
+        $this->genres = $genres;
+
+        return $this;
+    }
+
 }

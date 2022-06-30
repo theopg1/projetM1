@@ -27,9 +27,9 @@ security:
             guard:
                 authenticators:
                     - App\Security\BackendAuthenticator
-            logout:
-                path: backlogout
-                target: backlogin
+            # logout:
+            #     path: backlogout
+            #     target: backlogin
             access_denied_handler: App\Security\AccessDeniedHandler
 
 
