@@ -8,8 +8,8 @@ use App\Repository\AvisRepository;
 use App\Repository\UserRepository;
 use App\Entity\Avis;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Expr\Comparison;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +46,7 @@ class TestController extends AbstractController
     {
         $searchSlug = $slug ? str_replace('_', ' ', $slug) : null;
 
-        $criteria = new \Doctrine\Common\Collections\Criteria();
+        $criteria = new Criteria();
         $expr = new Comparison('title', Comparison::CONTAINS, $searchSlug);
         $criteria->where($expr);
         $criteria->orderBy(['title' => Criteria::ASC]);
