@@ -6,6 +6,15 @@
 
     <div class="container">
         <h1 class="d-inline me-3">{{ title }}</h1>
+
+        {{ form_start(form) }}
+
+        {{ form_row(form.search) }}
+
+        <button>Send</button>
+
+        {{ form_end(form) }}
+
         <div class="row mt-5" style="flex-wrap: unset !important;">
 
             <div class="col-12 col-md-8 ps-5" style="width: 100%;">

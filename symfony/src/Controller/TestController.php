@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TestController extends AbstractController
 {
@@ -24,7 +25,7 @@ class TestController extends AbstractController
     /**
      * @Route("/", name="homePage")
      */
-    public function homepage() : Response
+    public function homepage(Request $request) : Response
     {
         $animangas = [
             ['id' => '1', 'nom' => 'Black Clover', 'episodes' => '24', 'genre' => 'Action'],
@@ -35,9 +36,11 @@ class TestController extends AbstractController
         ];
 
         $form = $this->createFormBuilder()->add('search', TextType::class)->getForm();
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->redirect("\/search/".$form["slug"]);
+
+            return $this->redirectToRoute('searchAnimanga' , ['slug' => $form["search"]->getData()]);;
         }
 
        return $this->render('homepage.html.twig', [
@@ -131,7 +134,7 @@ class TestController extends AbstractController
     /**
      * @Route("/animanga/{slug}", name="animanga")
      */
-    public function animanga(AnimangaRepository $repository, int $slug = null,Request $request, ManagerRegistry $doctrine, 
+    public function animanga(AnimangaRepository $repository, int $slug = null, Request $request, ManagerRegistry $doctrine,
     UserRepository $users, AvisRepository $avisRepo ) : Response
     {
         $frontEndIdenticator = new FrontEndAuthenticator();
