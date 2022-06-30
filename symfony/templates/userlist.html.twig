@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - {% endblock %}
+
+{% block body %}
+
+    {% for user in users %}
+           <p class="mt-2"><strong>{{ user.username }}</strong></p>
+    {% endfor %}
+</div>
+{% endblock %}

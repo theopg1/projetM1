@@ -17,7 +17,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}", name="users")
      */
-    public function animanga( int $id = null,Request $request, ManagerRegistry $doctrine, 
+    public function userProfil( int $id = null,Request $request, ManagerRegistry $doctrine, 
     UserRepository $usersRepo, AvisRepository $avisRepo ) : Response
     {
         $userId = $id;
@@ -30,6 +30,22 @@ class UserController extends AbstractController
             'title' => '',
             'avis' => $avisList,
             'user' => $user
+        ]);
+    }
+
+     /**
+     * @Route("/users", name="users")
+     */
+    public function userList( int $id = null,Request $request, ManagerRegistry $doctrine, 
+    UserRepository $usersRepo, AvisRepository $avisRepo ) : Response
+    {
+        $userId = $id;
+        
+        $users = $usersRepo->findAll();    
+
+        return $this->render('user.html.twig', [
+            'title' => '',
+            'users' => $users
         ]);
     }
 
