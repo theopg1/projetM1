@@ -6,12 +6,14 @@ use App\Repository\AnimangaRepository;
 use App\Entity\Avis;
 use App\Repository\AvisRepository;
 use App\Repository\UserRepository;
+use App\Security\FrontEndAuthenticator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class TestController extends AbstractController
 {
@@ -91,6 +93,8 @@ class TestController extends AbstractController
     public function animanga(AnimangaRepository $repository, int $slug = null,Request $request, ManagerRegistry $doctrine, 
     UserRepository $users, AvisRepository $avisRepo ) : Response
     {
+        $frontEndIdenticator = new FrontEndAuthenticator();
+
         $userId = 1;
         $id = $slug ? : null;
         
@@ -103,17 +107,22 @@ class TestController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $user = $users->find($userId);
 
-            $avis = new Avis();
-            $avis->setComment($form["task"]->getData());
-            $avis->setAnimanga($animanga);
-            $avis->setUser($user);
+            if($frontEndIdenticator->isUserValid($users)){
 
-            $entityManager->persist($avis);
-            $entityManager->flush();
+                $user = $users->find($userId);
 
-            return $this->redirect($request->getUri());
+                $avis = new Avis();
+                $avis->setComment($form["task"]->getData());
+                $avis->setAnimanga($animanga);
+                $avis->setUser($user);
+    
+                $entityManager->persist($avis);
+                $entityManager->flush();
+    
+                return $this->redirect($request->getUri());
+
+            }
         }
 
         return $this->render('animanga.html.twig', [
