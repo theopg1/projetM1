@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\Avis;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -36,22 +37,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    function postCommentById(int $id_animanga, string $comment) {
-        //
+    public function postAvis(UserInterface $user, AnimangaRepository $animangaRep, int $id_animanga, int $note, string $comment=null) {
+        $animanga = $animangaRep->findOneBy(['id' => $id_animanga]);
+        $newAvis = new Avis();
+        $newAvis->setNote($note)->setUserId($user->getId())->setComment($comment);
     }
-    function modifyComment(int $id, string $comment) {
-        //
+    public function modifyComment(AvisRepository $avisRep, int $id_avis, string $comment) {
+        $avisRep->findOneBy(['id' => $id_avis])->setComment($comment);
     }
-    function eraseComment(int $id) {
-        //
+    public function modifyNote(AvisRepository $avisRep, int $id_avis, int $note) {
+        $avisRep->findOneBy(['id' => $id_avis])->setNote($note);
     }
-    function postNoteById(int $id_animanga, int $note) {
-        //
-    }
-    function modifyNote(int $id, int $note) {
-        //
-    }
-    function eraseNote(int $id) {
+    public function eraseAvis(int $id) {
         //
     }
 
