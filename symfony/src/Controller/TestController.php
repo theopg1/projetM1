@@ -3,9 +3,15 @@
 namespace App\Controller;
 
 use App\Repository\AnimangaRepository;
+use App\Entity\Avis;
+use App\Repository\AvisRepository;
+use App\Repository\UserRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 
 class TestController extends AbstractController
 {
@@ -82,16 +88,38 @@ class TestController extends AbstractController
     /**
      * @Route("/animanga/{slug}", name="animanga")
      */
-    public function animanga(AnimangaRepository $repository, int $slug = null) : Response
+    public function animanga(AnimangaRepository $repository, int $slug = null,Request $request, ManagerRegistry $doctrine, 
+    UserRepository $users, AvisRepository $avisRepo ) : Response
     {
-
+        $userId = 1;
         $id = $slug ? : null;
 
         $animanga = $repository->findOneBy(['id' => $id]);
+        $avisList = $avisRepo->findBy(["userId"=> $userId]);
+
+        $entityManager = $doctrine->getManager();
+        $form = $this->createFormBuilder()->add('task', TextType::class)->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $users->find($userId);
+
+            $avis = new Avis();
+            $avis->setComment($form["task"]->getData());
+            $avis->setUser($user);
+
+            $entityManager->persist($avis);
+            $entityManager->flush();
+
+            return $this->redirect($request->getUri());
+        }
 
         return $this->render('animanga.html.twig', [
             'title' => 'Animanga',
-            'animanga' => $animanga,
+            'animangas' => '$animangas',
+            'avis' => $avisList,
+            'form' => $form->createView(),
         ]);
     }
 
