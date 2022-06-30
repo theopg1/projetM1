@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ parent() }} - {{ title }}{% endblock %}
+
 {% block body %}
 <div class="container">
     <h1>Browse {{ genre ? genre : 'All Genres' }}</h1>
@@ -24,23 +26,25 @@
     </ul>
 
     <div>
-        <h2 class="mt-5">Animangas</h2>
+        <h2 class="mt-5">{{ title }}</h2>
         <div class="row">
             {% for animanga in animangas %}
                 {% if genre is not null %}
-                    {% if animanga.genre|lower == genre|lower %}
+                    {% if genre|lower in animanga.genre|lower %}
             <div class="col col-md-4" style="margin-bottom: 3em; width: 20% !important;">
                 <div class="animanga-container p-3 text-center">
                     <a href="{{ path('animanga', {
                         slug: animanga.id
-                    }) }}"><img class="imageListe" src="/images/animangas/{{ animanga.id }}.jpg" data-src="/images/animangas/{{ animanga.id }}.jpg" alt="Square placeholder img" >
+                    }) }}"><img class="imageListe" src="{{ animanga.image }}" data-src="{{ animanga.image }}" alt="Animanga image" >
                     </a>
                     <a href="{{ path('animanga', {
                         slug: animanga.id
                     }) }}">
-                        <p class="mt-2" ><strong>{{ animanga.nom }}</strong></p>
+                        <p class="mt-2" ><strong>{{ animanga.title }}</strong></p>
                     </a>
-                    <span>{{ animanga.episodes }}</span> | <span>{{ animanga.genre }}</span>
+                    <span>Nombre d'épisodes : {{ animanga.episodes }}</span>
+                    <br>
+                    <span>Genres : {{ animanga.type }} </span>
                 </div>
             </div>
                 {% endif %}
@@ -49,14 +53,16 @@
                         <div class="animanga-container p-3 text-center">
                             <a href="{{ path('animanga', {
                                 slug: animanga.id
-                            }) }}"><img class="imageListe" src="/images/animangas/{{ animanga.id }}.jpg" data-src="/images/animangas/{{ animanga.id }}.jpg" alt="Square placeholder img" >
+                            }) }}"><img class="imageListe" src="{{ animanga.image }}" data-src="{{ animanga.image }}" alt="Animanga image" >
                             </a>
                             <a href="{{ path('animanga', {
                                 slug: animanga.id
                             }) }}">
-                                <p class="mt-2" ><strong>{{ animanga.nom }}</strong></p>
+                                <p class="mt-2" ><strong>{{ animanga.title }}</strong></p>
                             </a>
-                            <span>{{ animanga.episodes }}</span> | <span>{{ animanga.genre }}</span>
+                            <span>Nombre d'épisodes : {{ animanga.episodes }}</span>
+                            <br>
+                            <span>Genres : {{ animanga.type }} </span>
                         </div>
                     </div>
             {% endif %}
