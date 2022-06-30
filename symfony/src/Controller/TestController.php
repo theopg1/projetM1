@@ -95,8 +95,9 @@ class TestController extends AbstractController
     {
         $frontEndIdenticator = new FrontEndAuthenticator();
 
-        $userId = 1;
+        
         $id = $slug ? : null;
+        $userNotValid = false;
         
         $animanga = $repository->findOneBy(['id' => $id]);
         $avisList = $avisRepo->findBy(["animanga"=> $animanga]);
@@ -106,9 +107,9 @@ class TestController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $userId = $frontEndIdenticator->getUserId($users);
 
-
-            if($frontEndIdenticator->isUserValid($users)){
+            if($userId !== false){
 
                 $user = $users->find($userId);
 
@@ -122,6 +123,9 @@ class TestController extends AbstractController
     
                 return $this->redirect($request->getUri());
 
+            }
+            else{
+                $userNotValid = true;
             }
         }
 
