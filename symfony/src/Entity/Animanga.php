@@ -6,6 +6,7 @@ use App\Repository\AnimangaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AnimangaRepository::class)
@@ -21,56 +22,69 @@ class Animanga
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"name", "animanga"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"animanga"})
+
      */
+    
     private $originalTitle;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"animanga"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"animanga"})
      */
     private $synopsis;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups({"animanga"})
      */
     private $note;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups({"animanga"})
      */
     private $releaseDate;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups({"animanga"})
      */
     private $tomes;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups({"animanga"})
      */
     private $episodes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"animanga"})
      */
     private $status;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"animanga"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"animanga"})
      */
     private $lastModification;
 
