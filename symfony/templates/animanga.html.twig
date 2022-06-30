@@ -1,43 +1,31 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ parent() }} - {% endblock %}
+
 {% block body %}
 <div class="container">
-    <h1>Browse {{ genre ? genre : 'All Genres' }}</h1>
+    <h1 style="text-align: center">{{ animanga.title }}</h1>
 
-    <h2 class="mt-5 mb-4">Filter by Genre</h2>
-    <ul class="genre-list ps-0 mt-2 mb-3">
-        <li class="d-inline">
-            <a class="btn btn-primary btn-sm" href="{{ path('genreAnimanga', {
-                slug:'comedy'
-            }) }}">Comedy</a>
-        </li>
-        <li class="d-inline">
-            <a class="btn btn-primary btn-sm" href="{{ path('genreAnimanga', {
-                slug:'action'
-            }) }}">Action</a>
-        </li>
-        <li class="d-inline">
-            <a class="btn btn-primary btn-sm" href="{{ path('genreAnimanga', {
-                slug:'drama'
-            }) }}">Drama</a>
-        </li>
-    </ul>
+    <h2 class="mt-5 mb-4" style="text-align: center">{{ animanga.originalTitle }}</h2>
 
     <div>
-        <h2 class="mt-5">Animangas</h2>
-        <div class="row">
-            {% for animanga in animangas %}
+        <h2 class="mt-5" style="text-align: center">{{ animanga.type }}</h2>
+        <div class="row" style="display: flex; flex-flow: row">
+
             <div class="col col-md-4">
-                <div class="mixed-vinyl-container p-3 text-center">
-                    <a href="{{ path('genreAnimanga', {
-                        slug: animanga.id
-                    }) }}"><img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img" >
+                <div class="animanga-container p-3 text-center">
+                    <a href="{{ animanga.image }}">
+                        <img src="{{ animanga.image }}" data-src="{{ animanga.image }}" alt="Square placeholder img" >
                     </a>
-                    <p class="mt-2"><strong>{{ animanga.nom }}</strong></p>
-                    <span>{{ animanga.episodes }}</span> | <span>{{ animanga.genre }}</span>
+                    <p class="mt-2"><strong>{{ animanga.title }}</strong></p>
+                    <span>Nombre d'épisodes : {{ animanga.episodes }}</span>
+                    <br>
+                    <span>Genres : {{ animanga.type }}</span>
                 </div>
             </div>
-            {% endfor %}
+            <div>
+                <p style="width: 65%; margin-top: 3em;">{{ animanga.synopsis }}</p>
+            </div>
         </div>
     </div>
 </div>
