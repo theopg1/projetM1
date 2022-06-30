@@ -30,7 +30,6 @@ class TestController extends AbstractController
             ['id' => '5','nom' => 'Eyeshield21', 'episodes' => '64', 'genre' => 'Comedy'],
         ];
 
-
        return $this->render('homepage.html.twig', [
            'title' => '> Nos Mangas et Animes :',
            'topMangas' => $animangas,
@@ -43,8 +42,8 @@ class TestController extends AbstractController
      */
     public function browse(AnimangaRepository $repository, GenresRepository $genresRepository, string $slug = null) : Response
     {
-        $animangas = $repository->findall();
-        $genres = $genresRepository->findall();
+        $animangas = $repository->findBy([],['title' => 'ASC']);
+        $genres = $genresRepository->findBy([],['label' => 'ASC']);
 
         $genreSlug = $slug ? str_replace('-', ' ', $slug) : null;
 
@@ -58,12 +57,28 @@ class TestController extends AbstractController
     }
 
     /**
+     * @Route("/search/{slug}", name="searchAnimanga")
+     */
+    public function search(AnimangaRepository $repository, string $slug = null) : Response
+    {
+        $searchSlug = $slug ? str_replace('_', ' ', $slug) : null;
+
+        $animangas = $repository->findBy(['title' => $searchSlug],['title' => 'ASC']);
+
+        return $this->render('search.html.twig', [
+            'searchSlug' => $searchSlug,
+            'title' => 'Animangas',
+            'animangas' => $animangas,
+        ]);
+    }
+
+    /**
      * @Route("/browseManga/{slug}", name="genreManga")
      */
     public function browseManga(AnimangaRepository $repository, GenresRepository $genresRepository, string $slug = null) : Response
     {
-        $animangas = $repository->findBy(['type' => 'Manga']);
-        $genres = $genresRepository->findall();
+        $animangas = $repository->findBy(['type' => 'Manga'],['title' => 'ASC']);
+        $genres = $genresRepository->findBy([],['label' => 'ASC']);
 
         $genreSlug = $slug ? str_replace('-', ' ', $slug) : null;
 
@@ -81,8 +96,8 @@ class TestController extends AbstractController
      */
     public function browseAnime(AnimangaRepository $repository, GenresRepository $genresRepository, string $slug = null) : Response
     {
-        $animangas = $repository->findBy(['type' => 'Anime']);
-        $genres = $genresRepository->findAllbyAsc();
+        $animangas = $repository->findBy(['type' => 'Anime'],['title' => 'ASC']);
+        $genres = $genresRepository->findBy([],['label' => 'ASC']);
 
         $genreSlug = $slug ? str_replace('-', ' ', $slug) : null;
 

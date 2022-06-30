@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - {{ title }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Search : {{ searchSlug ? searchSlug : 'All Genres' }}</h1>
+
+    <div>
+        <h2 class="mt-5">{{ title }}</h2>
+        <div class="row">
+                {% if searchSlug is not null %}
+                    {% for animanga in animangas %}
+                    <div class="col col-md-4" style="margin-bottom: 3em; width: 20% !important;">
+                        <div class="animanga-container p-3 text-center">
+                            <a href="{{ path('animanga', {
+                                slug: animanga.id
+                            }) }}"><img class="imageListe" src="{{ animanga.image }}" data-src="{{ animanga.image }}" alt="Animanga image">
+                            </a>
+                            <a href="{{ path('animanga', {
+                                slug: animanga.id
+                            }) }}">
+                                <p class="mt-2" ><strong>{{ animanga.title }}</strong></p>
+                            </a>
+                            {% if animanga.type == "Manga" %}
+                                <span>Nombre de tomes : {{ animanga.tomes ? animanga.tomes : 'Inconnu' }}</span>
+                            {% elseif animanga.type == "Anime" %}
+                                <span>Nombre d'épisodes : {{ animanga.episodes ? animanga.episodes : 'Inconnu' }}</span>
+                            {% endif %}
+                            <br>
+                            <span>Genres : {{ animanga.genres|replace({',': ' |'}) }} </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
