@@ -48,8 +48,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function modifyNote(AvisRepository $avisRep, int $id_avis, int $note) {
         $avisRep->findOneBy(['id' => $id_avis])->setNote($note);
     }
-    public function eraseAvis(int $id) {
-        //
+    public function eraseAvis(AvisRepository $avisRep, int $id_avis) {
+        $avisRep->findOneBy(['id' => $id_avis]);
     }
 
     // /**
