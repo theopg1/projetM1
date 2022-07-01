@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -148,7 +149,7 @@ class TestController extends AbstractController
         $avisList = $avisRepo->findBy(["animanga"=> $animanga]);
 
         $entityManager = $doctrine->getManager();
-        $form = $this->createFormBuilder()->add('comment', TextType::class)->getForm();
+        $form = $this->createFormBuilder()->add('comment', TextareaType::class)->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -183,5 +184,7 @@ class TestController extends AbstractController
 
         return $this->render($isUserValid? 'animanga.html.twig' : 'animangaNoComment.html.twig', $renderArr);
     }
+
+    
 
 }
