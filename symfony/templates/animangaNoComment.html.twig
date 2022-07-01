@@ -35,19 +35,6 @@
 
     <div class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"></div>
 
-    {{ form_start(form) }}
-           <div>
-        {{ form_errors(form) }}
-    </div>
-
-    <div class="row">
-        <div class="col">
-            {{ form_row(form.task) }}
-        </div>
-    </div>
-
-    <button>Send</button>
-    {{ form_end(form) }}
 
     {% for singleAvis in avis %}
            <p class="mt-2"><strong>{{ singleAvis.comment }}</strong></p>

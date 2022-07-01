@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
+
 
 class TestController extends AbstractController
 {
@@ -37,7 +37,7 @@ class TestController extends AbstractController
         $form = $this->createFormBuilder()->add('search', TextType::class)->getForm();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->redirect("\/search/".$form["slug"]);
+            return $this->redirectToRoute("searchAnimanga", ["slug"=> $form["search"]]);
         }
 
        return $this->render('homepage.html.twig', [
@@ -136,26 +136,27 @@ class TestController extends AbstractController
     {
         $frontEndIdenticator = new FrontEndAuthenticator();
 
+        $userId = $frontEndIdenticator->getUserId($users, $request->getSession());
         
         $id = $slug ? : null;
-        $userNotValid = false;
+        $isUserValid = !!$userId;
         
         $animanga = $repository->findOneBy(['id' => $id]);
         $avisList = $avisRepo->findBy(["animanga"=> $animanga]);
 
         $entityManager = $doctrine->getManager();
-        $form = $this->createFormBuilder()->add('task', TextType::class)->getForm();
+        $form = $this->createFormBuilder()->add('comment', TextType::class)->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userId = $frontEndIdenticator->getUserId($users);
+           
 
             if($userId !== false){
 
                 $user = $users->find($userId);
 
                 $avis = new Avis();
-                $avis->setComment($form["task"]->getData());
+                $avis->setComment($form["comment"]->getData());
                 $avis->setAnimanga($animanga);
                 $avis->setUser($user);
     
@@ -166,16 +167,19 @@ class TestController extends AbstractController
 
             }
             else{
-                $userNotValid = true;
+                $isUserValid = true;
             }
         }
 
-        return $this->render('animanga.html.twig', [
+        $renderArr = [
             'title' => 'Animanga',
             'animanga' => $animanga,
             'avis' => $avisList,
-            'form' => $form->createView(),
-        ]);
+            "form" => $form->createView()
+
+        ];
+
+        return $this->render($isUserValid? 'animanga.html.twig' : 'animangaNoComment.html.twig', $renderArr);
     }
 
 }
