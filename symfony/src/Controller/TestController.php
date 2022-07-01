@@ -185,6 +185,23 @@ class TestController extends AbstractController
         return $this->render($isUserValid? 'animanga.html.twig' : 'animangaNoComment.html.twig', $renderArr);
     }
 
-    
+    /**
+     * @Route("/users/{id}", name="users")
+     */
+    public function userProfil( int $id = null,Request $request, ManagerRegistry $doctrine,
+                                UserRepository $usersRepo, AvisRepository $avisRepo ) : Response
+    {
+        $userId = $id;
+
+        $user = $usersRepo->find($id);
+
+        $avisList = $avisRepo->findBy(["userId"=> $userId]);
+
+        return $this->render('user.html.twig', [
+            'title' => '',
+            'avis' => $avisList,
+            'user' => $user
+        ]);
+    }
 
 }
