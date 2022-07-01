@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - {% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+
+        {{ form_row(form.username) }}
+        {{ form_row(form.password) }}
+
+    <button>Login</button>
+    {{ form_end(form) }}
+
+</div>
+{% endblock %}
