@@ -5,14 +5,15 @@ use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class FrontEndAuthenticator{
-    public function getUserId(UserRepository $userRepo){
-
-        return $this->getUser($userRepo)["id"];
+    public function getUserId(UserRepository $userRepo, Session $session){
+        $user = $this->getUser($userRepo,$session);
+        if($user){
+            return ["id"];
+        }
+        return false;
     }
 
-    public function getUser(UserRepository $userRepo){
-
-        $session = new Session();
+    public function getUser(UserRepository $userRepo, Session $session){
 
         $username = $session->get("username");
         $password = $session->get("password");
