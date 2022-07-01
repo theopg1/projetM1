@@ -20,7 +20,7 @@ Il y aura des comptes « modérateurs » qui seront les gérants de la plate-f
 
 
 ## Contraintes :
-Aucune contrainte de langage nous a été donnée, nous partons donc sur une application en PHP 7 avec Symfony 4.4. Le site devra être accessible sur la majorité des navigateurs et appareils, quelque soient leur puissance et leur taille.
+Aucune contrainte de langage nous a été donnée, nous partons donc sur une application en PHP 7 avec Symfony 4.4. Le site devra être accessible sur la majorité des navigateurs et appareils, quelque soient leur puissance et leur taille. Pour la base de données, nous utilisons le MySQL, et pour la gestion administrateur, nous utilisons BackOffice.
 
 
 ## Solutions :
