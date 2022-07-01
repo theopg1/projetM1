@@ -8,9 +8,16 @@
 
         <h1 class="d-inline me-3">{{ title }}</h1>
 
-        {{ form_start(form) }}
+        {{ form_start(form, {
+            'attr': {'type': 'text', 'list': 'datalist', 'style': 'margin-top: 1em; display: flex; gap: 1em;'}
+        }) }}
 
-        {{ form_row(form.search) }}
+        <datalist id="datalist"></datalist>
+
+        <p style="margin: 0">Recherche :</p>
+        {{ form_widget(form.search, {
+            'attr': {'style': ''}
+        }) }}
 
         <button>Send</button>
 
@@ -65,4 +72,9 @@
             </div>
         </div>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
 {% endblock %}
