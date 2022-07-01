@@ -1,52 +1,76 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{{ parent() }} - {{ title }}{% endblock %}
+
 {% block body %}
 <div class="container">
-    <h1>Browse {{ genre ? genre : 'All Genres' }}</h1>
+    <h1>Browse by : {{ genreSlug ? genreSlug : 'All Genres' }}</h1>
 
     <h2 class="mt-5 mb-4">Filter by Genre</h2>
     <ul class="genre-list ps-0 mt-2 mb-3">
+        {% for genre in genres %}
         <li class="d-inline">
-            <a class="btn btn-primary btn-sm" href="{{ path('genreAnimanga', {
-                slug:'comedy'
-            }, false) }}">Comedy</a>
+            <a class="btn btn-primary btn-sm" style="margin-bottom: 10px;" href="{{ path( path, {
+                slug: genre.label
+            }) }}">{{ genre.label }}</a>
         </li>
-        <li class="d-inline">
-            <a class="btn btn-primary btn-sm" href="{{ path('genreAnimanga', {
-                slug:'action'
-            }, true) }}">Action</a>
-        </li>
-        <li class="d-inline">
-            <a class="btn btn-primary btn-sm" href="{{ path('genreAnimanga', {
-                slug:'drama'
-            }) }}">Drama</a>
-        </li>
+        {% endfor %}
     </ul>
 
     <div>
-        <h2 class="mt-5">Mixes</h2>
+        <h2 class="mt-5">{{ title }}</h2>
         <div class="row">
-            <div class="col col-md-4">
-                <div class="mixed-vinyl-container p-3 text-center">
-                    <img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img">
-                    <p class="mt-2"><strong>PB & Jams</strong></p>
-                    <span>14 Tracks</span> | <span>Rock</span>
+            {% for animanga in animangas %}
+                {% if genreSlug is not null %}
+                    {% if genreSlug|lower|replace({' ': ''}) in animanga.genres|lower|replace({' ': ''})|split(',') %}
+            <div class="col col-md-4" style="margin-bottom: 3em; width: 20% !important;">
+                <div class="animanga-container p-3 text-center">
+                    <a href="{{ path('animanga', {
+                        slug: animanga.id
+                    }) }}"><img class="imageListe" src="{{ animanga.image }}" data-src="{{ animanga.image }}" alt="Animanga image" >
+                    </a>
+                    <a href="{{ path('animanga', {
+                        slug: animanga.id
+                    }) }}">
+                        <p class="mt-2" ><strong>{{ animanga.title }}</strong></p>
+                    </a>
+                    <span>Genres : {{ animanga.genres|replace({',': ' |'}) }}</span>
+                    <br><br>
+                    {% if animanga.type == "Manga" %}
+                        <span>Nombre de tomes : {{ animanga.tomes ? animanga.tomes : 'Inconnu' }}</span>
+                    {% elseif animanga.type == "Anime" %}
+                        <span>Nombre d'épisodes : {{ animanga.episodes ? animanga.episodes : 'Inconnu' }}</span>
+                    {% endif %}
+                    <br>
+                    <span>Date de sortie : {{ animanga.releaseDate }}</span>
                 </div>
             </div>
-            <div class="col col-md-4">
-                <div class="mixed-vinyl-container p-3 text-center">
-                    <img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img">
-                    <p class="mt-2"><strong>Put a Hex on your Ex</strong></p>
-                    <span>8 Tracks</span> | <span>Heavy Metal</span>
-                </div>
-            </div>
-            <div class="col col-md-4">
-                <div class="mixed-vinyl-container p-3 text-center">
-                    <img src="https://via.placeholder.com/300" data-src="https://via.placeholder.com/300" alt="Square placeholder img">
-                    <p class="mt-2"><strong>Spice Grills - Summer Tunes</strong></p>
-                    <span>10 Tracks</span> | <span>Pop</span>
-                </div>
-            </div>
+                {% endif %}
+                {% else %}
+                    <div class="col col-md-4" style="margin-bottom: 3em; width: 20% !important;">
+                        <div class="animanga-container p-3 text-center">
+                            <a href="{{ path('animanga', {
+                                slug: animanga.id
+                            }) }}"><img class="imageListe" src="{{ animanga.image }}" data-src="{{ animanga.image }}" alt="Animanga image">
+                            </a>
+                            <a href="{{ path('animanga', {
+                                slug: animanga.id
+                            }) }}">
+                                <p class="mt-2" ><strong>{{ animanga.title }}</strong></p>
+                            </a>
+                            <span>Genres : {{ animanga.genres|replace({',': ' |'}) }}</span>
+                            <br><br>
+                            {% if animanga.type == "Manga" %}
+                                <span>Nombre de tomes : {{ animanga.tomes ? animanga.tomes : 'Inconnu' }}</span>
+                            {% elseif animanga.type == "Anime" %}
+                                <span>Nombre d'épisodes : {{ animanga.episodes ? animanga.episodes : 'Inconnu' }}</span>
+                            {% endif %}
+                            <br>
+                            <span>Date de sortie : {{ animanga.releaseDate }}</span>
+                        </div>
+                    </div>
+            {% endif %}
+            {% endfor %}
         </div>
     </div>
 </div>

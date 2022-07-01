@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c9c796e4-c7be-4ea2-a2b1-b8d68e9d6946" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony/src/Controller/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/symfony/src/Controller/TestController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony/src/Repository/AnimangaRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/symfony/src/Repository/AnimangaRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony/src/Repository/GenresRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/symfony/src/Repository/GenresRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony/templates/animanga.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/symfony/templates/animanga.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony/templates/browse.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/symfony/templates/browse.html.twig" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

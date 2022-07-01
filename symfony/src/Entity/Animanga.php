@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\AnimangaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AnimangaRepository::class)
@@ -19,58 +22,89 @@ class Animanga
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"name", "animanga", "top"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"animanga"})
+
      */
+    
     private $originalTitle;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"animanga"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"animanga"})
      */
     private $synopsis;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups({"animanga", "top"})
      */
     private $note;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="smallint", nullable=true)
+     * @Groups({"animanga"})
      */
     private $releaseDate;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups({"animanga", "top"})
      */
     private $tomes;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
+     * @Groups({"animanga", "top"})
      */
     private $episodes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"animanga"})
      */
     private $status;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"animanga", "top"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"animanga"})
      */
     private $lastModification;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="animanga", orphanRemoval=true)
+     */
+    private $feedbacks;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $genres;
+
+
+
+    public function __construct()
+    {
+        $this->feedbacks = new ArrayCollection();
+        $this->lastModification = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -137,17 +171,7 @@ class Animanga
         return $this;
     }
 
-    public function getReleaseDate(): ?\DateTimeInterface
-    {
-        return $this->releaseDate;
-    }
 
-    public function setReleaseDate(?\DateTimeInterface $releaseDate): self
-    {
-        $this->releaseDate = $releaseDate;
-
-        return $this;
-    }
 
     public function getTomes(): ?int
     {
@@ -208,4 +232,66 @@ class Animanga
 
         return $this;
     }
+
+    /**
+     * @return Collection|Avis[]
+     */
+    public function getFeedbacks(): Collection
+    {
+        return $this->feedbacks;
+    }
+
+    public function addFeedback(Avis $feedback): self
+    {
+        if (!$this->feedbacks->contains($feedback)) {
+            $this->feedbacks[] = $feedback;
+            $feedback->setAnimanga($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFeedback(Avis $feedback): self
+    {
+        if ($this->feedbacks->removeElement($feedback)) {
+            // set the owning side to null (unless already changed)
+            if ($feedback->getAnimanga() === $this) {
+                $feedback->setAnimanga(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
+    public function getReleaseDate(): ?int
+    {
+        return $this->releaseDate;
+    }
+
+    public function setReleaseDate(?int $releaseDate): self
+    {
+        $this->releaseDate = $releaseDate;
+
+        return $this;
+    }
+
+    public function getGenres(): ?string
+    {
+        return $this->genres;
+    }
+
+    public function setGenres(?string $genres): self
+    {
+        $this->genres = $genres;
+
+        return $this;
+    }
+
 }

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - {% endblock %}
+
+{% block body %}
+
+    {{ form_start(form, {
+        'attr': {'type': 'text', 'list': 'datalist', 'style': 'margin-top: 1em; display: flex; gap: 1em; justify-content: center;'}
+    }) }}
+
+        <p style="margin: 0">Username :</p>
+        {{ form_widget(form.username, {
+            'attr': {'style': ''}
+        }) }}
+        <p style="margin: 0">Password :</p>
+        {{ form_widget(form.password, {
+            'attr': {'style': ''}
+        }) }}
+
+    <button>Login</button>
+    {{ form_end(form) }}
+
+</div>
+{% endblock %}

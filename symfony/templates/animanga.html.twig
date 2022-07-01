@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - {% endblock %}
+
+{% block body %}
+<div class="container">
+    <div>
+        <div class="row" style="display: flex; flex-flow: row">
+
+            <div class="col col-md-4">
+                <div class="animanga-container p-3 text-center">
+                    <a target="_blank" href="{{ animanga.image }}">
+                        <img class="imageAnimanga" src="{{ animanga.image }}" data-src="{{ animanga.image }}" alt="Square placeholder img">
+                    </a>
+                    <br>
+                    <p style="margin-top: 1em;"><strong>{{ animanga.title }}</strong></p>
+                    <span>Genres : {{ animanga.genres|replace({',': ' |'}) }}</span>
+                    <br><br>
+                    {% if animanga.type == "Manga" %}
+                        <span>Nombre de tomes : {{ animanga.tomes ? animanga.tomes : 'Inconnu' }}</span>
+                    {% elseif animanga.type == "Anime" %}
+                        <span>Nombre d'épisodes : {{ animanga.episodes ? animanga.episodes : 'Inconnu' }}</span>
+                    {% endif %}
+                    <br>
+                    <span>Date de sortie : {{ animanga.releaseDate }}</span>
+                    <br><br>
+                    <span>Status : {{ animanga.status }}</span>
+                </div>
+            </div>
+            <div>
+                <h1 class="mt-5" style="text-align: center; width: fit-content">{{ animanga.title }}</h1>
+                <h2 class="mt-5" style="text-align: center; width: fit-content">Titre original : {{ animanga.originalTitle }}</h2>
+                <h2 class="mt-5" style="text-align: center; width: fit-content">Type : {{ animanga.type }}</h2>
+                <p style="width: 65%; margin-top: 3em; font-size: 15pt;">{{ animanga.synopsis }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"></div>
+
+    {{ form_start(form, {
+        'attr': {'type': 'text', 'list': 'datalist', 'style': ''}
+    }) }}
+           <div>
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <p class="mt-2">Commentaire :</p>
+            {{ form_widget(form.comment, {
+                'attr': {'style': 'margin-left: 1em; display: block; margin-bottom: 1em; width: 95%; height: 9em; resize: none;'}
+            }) }}
+        </div>
+    </div>
+
+    <button>Send</button>
+    {{ form_end(form) }}
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"></div>
+
+    {% for singleAvis in avis %}
+        <div>
+            <h3>{{ singleAvis.user.username }}</h3>
+           <p class="mt-2"><strong>{{ singleAvis.comment }}</strong></p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
