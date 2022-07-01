@@ -50,7 +50,10 @@
     {{ form_end(form) }}
 
     {% for singleAvis in avis %}
+        <div>
+            <h3>{{ singleAvis.user.username }}</h3>
            <p class="mt-2"><strong>{{ singleAvis.comment }}</strong></p>
+        </div>
     {% endfor %}
 </div>
 {% endblock %}
