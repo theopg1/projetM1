@@ -46,7 +46,7 @@ class LoginController extends AbstractController
     }
 
     public function createLoginForm(){
-        return $this->createFormBuilder()->add('login', TextType::class)
+        return $this->createFormBuilder()->add('username', TextType::class)
         ->add('password', PasswordType::class)->getForm();
     }
 
