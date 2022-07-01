@@ -4,31 +4,35 @@
 
 {% block body %}
 <div class="container">
-    <h1 style="text-align: center">{{ animanga.title }}</h1>
-
-    <h2 class="mt-5 mb-4" style="text-align: center">{{ animanga.originalTitle }}</h2>
 
     <div>
-        <h2 class="mt-5" style="text-align: center">{{ animanga.type }}</h2>
         <div class="row" style="display: flex; flex-flow: row">
 
             <div class="col col-md-4">
                 <div class="animanga-container p-3 text-center">
-                    <a href="{{ animanga.image }}">
+                    <a target="_blank" href="{{ animanga.image }}">
                         <img class="imageAnimanga" src="{{ animanga.image }}" data-src="{{ animanga.image }}" alt="Square placeholder img">
                     </a>
-                    <p class="mt-2"><strong>{{ animanga.title }}</strong></p>
+                    <br>
+                    <p style="margin-top: 1em;"><strong>{{ animanga.title }}</strong></p>
+                    <span>Genres : {{ animanga.genres|replace({',': ' |'}) }}</span>
+                    <br><br>
                     {% if animanga.type == "Manga" %}
                         <span>Nombre de tomes : {{ animanga.tomes ? animanga.tomes : 'Inconnu' }}</span>
                     {% elseif animanga.type == "Anime" %}
                         <span>Nombre d'épisodes : {{ animanga.episodes ? animanga.episodes : 'Inconnu' }}</span>
                     {% endif %}
                     <br>
-                    <span>Genres : {{ animanga.genres|replace({',': ' |'}) }}</span>
+                    <span>Date de sortie : {{ animanga.releaseDate }}</span>
+                    <br><br>
+                    <span>Status : {{ animanga.status }}</span>
                 </div>
             </div>
             <div>
-                <p style="width: 65%; margin-top: 3em;">{{ animanga.synopsis }}</p>
+                <h1 class="mt-5" style="text-align: center; width: fit-content">{{ animanga.title }}</h1>
+                <h2 class="mt-5" style="text-align: center; width: fit-content">Titre original : {{ animanga.originalTitle }}</h2>
+                <h2 class="mt-5" style="text-align: center; width: fit-content">Type : {{ animanga.type }}</h2>
+                <p style="width: 65%; margin-top: 3em; font-size: 15pt;">{{ animanga.synopsis }}</p>
             </div>
         </div>
     </div>

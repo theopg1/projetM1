@@ -34,13 +34,15 @@
                     }) }}">
                         <p class="mt-2" ><strong>{{ animanga.title }}</strong></p>
                     </a>
+                    <span>Genres : {{ animanga.genres|replace({',': ' |'}) }}</span>
+                    <br><br>
                     {% if animanga.type == "Manga" %}
                         <span>Nombre de tomes : {{ animanga.tomes ? animanga.tomes : 'Inconnu' }}</span>
                     {% elseif animanga.type == "Anime" %}
                         <span>Nombre d'épisodes : {{ animanga.episodes ? animanga.episodes : 'Inconnu' }}</span>
                     {% endif %}
                     <br>
-                    <span>Genres : {{ animanga.genres|replace({',': ' |'}) }} </span>
+                    <span>Date de sortie : {{ animanga.releaseDate }}</span>
                 </div>
             </div>
                 {% endif %}
@@ -56,13 +58,15 @@
                             }) }}">
                                 <p class="mt-2" ><strong>{{ animanga.title }}</strong></p>
                             </a>
+                            <span>Genres : {{ animanga.genres|replace({',': ' |'}) }}</span>
+                            <br><br>
                             {% if animanga.type == "Manga" %}
                                 <span>Nombre de tomes : {{ animanga.tomes ? animanga.tomes : 'Inconnu' }}</span>
                             {% elseif animanga.type == "Anime" %}
                                 <span>Nombre d'épisodes : {{ animanga.episodes ? animanga.episodes : 'Inconnu' }}</span>
                             {% endif %}
                             <br>
-                            <span>Genres : {{ animanga.genres|replace({',': ' |'}) }} </span>
+                            <span>Date de sortie : {{ animanga.releaseDate }}</span>
                         </div>
                     </div>
             {% endif %}
