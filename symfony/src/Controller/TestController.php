@@ -25,7 +25,7 @@ class TestController extends AbstractController
     /**
      * @Route("/", name="homePage")
      */
-    public function homepage(Request $request) : Response
+    public function homepage(Request $request, UserRepository $users) : Response
     {
         $animangas = [
             ['id' => '1', 'nom' => 'Black Clover', 'episodes' => '24', 'genre' => 'Action'],
@@ -34,6 +34,10 @@ class TestController extends AbstractController
             ['id' => '4','nom' => 'Naruto', 'episodes' => '574', 'genre' => 'Comedy'],
             ['id' => '5','nom' => 'Eyeshield21', 'episodes' => '64', 'genre' => 'Comedy'],
         ];
+
+        $frontEndIdenticator = new FrontEndAuthenticator();
+
+        $userId = $frontEndIdenticator->getUserId($users, $request->getSession());
 
         $form = $this->createFormBuilder()->add('search', TextType::class)->getForm();
         $form->handleRequest($request);
@@ -48,15 +52,20 @@ class TestController extends AbstractController
            'topMangas' => $animangas,
            'topAnimes' => $animangas,
            'form' => $form->createView(),
+           'id' => $userId,
        ]);
     }
 
     /**
      * @Route("/search/{slug}", name="searchAnimanga")
      */
-    public function search(AnimangaRepository $repository, string $slug = null) : Response
+    public function search(AnimangaRepository $repository, UserRepository $users, Request $request, string $slug = null) : Response
     {
         $searchSlug = $slug ? str_replace('_', ' ', $slug) : null;
+
+        $frontEndIdenticator = new FrontEndAuthenticator();
+
+        $userId = $frontEndIdenticator->getUserId($users, $request->getSession());
 
         $criteria = new Criteria();
         $expr = new Comparison('title', Comparison::CONTAINS, $searchSlug);
@@ -69,18 +78,21 @@ class TestController extends AbstractController
             'searchSlug' => $searchSlug,
             'title' => 'Animangas',
             'animangas' => $result,
+            'id' => $userId,
         ]);
     }
 
     /**
      * @Route("/browse/{slug}", name="genreAnimanga")
      */
-    public function browse(AnimangaRepository $repository, GenresRepository $genresRepository, string $slug = null) : Response
+    public function browse(AnimangaRepository $repository, UserRepository $users, Request $request, GenresRepository $genresRepository, string $slug = null) : Response
     {
         $animangas = $repository->findBy([],['title' => 'ASC']);
         $genres = $genresRepository->findBy([],['label' => 'ASC']);
 
+        $frontEndIdenticator = new FrontEndAuthenticator();
 
+        $userId = $frontEndIdenticator->getUserId($users, $request->getSession());
 
         $genreSlug = $slug ? str_replace('-', ' ', $slug) : null;
 
@@ -90,16 +102,21 @@ class TestController extends AbstractController
             'genres' => $genres,
             'title' => 'Animangas',
             'animangas' => $animangas,
+            'id' => $userId,
         ]);
     }
 
     /**
      * @Route("/browseManga/{slug}", name="genreManga")
      */
-    public function browseManga(AnimangaRepository $repository, GenresRepository $genresRepository, string $slug = null) : Response
+    public function browseManga(AnimangaRepository $repository, UserRepository $users, Request $request, GenresRepository $genresRepository, string $slug = null) : Response
     {
         $animangas = $repository->findBy(['type' => 'Manga'],['title' => 'ASC']);
         $genres = $genresRepository->findBy([],['label' => 'ASC']);
+
+        $frontEndIdenticator = new FrontEndAuthenticator();
+
+        $userId = $frontEndIdenticator->getUserId($users, $request->getSession());
 
         $genreSlug = $slug ? str_replace('-', ' ', $slug) : null;
 
@@ -109,16 +126,21 @@ class TestController extends AbstractController
             'genres' => $genres,
             'title' => 'Mangas',
             'animangas' => $animangas,
+            'id' => $userId,
         ]);
     }
 
     /**
      * @Route("/browseAnime/{slug}", name="genreAnime")
      */
-    public function browseAnime(AnimangaRepository $repository, GenresRepository $genresRepository, string $slug = null) : Response
+    public function browseAnime(AnimangaRepository $repository, UserRepository $users, Request $request, GenresRepository $genresRepository, string $slug = null) : Response
     {
         $animangas = $repository->findBy(['type' => 'Anime'],['title' => 'ASC']);
         $genres = $genresRepository->findBy([],['label' => 'ASC']);
+
+        $frontEndIdenticator = new FrontEndAuthenticator();
+
+        $userId = $frontEndIdenticator->getUserId($users, $request->getSession());
 
         $genreSlug = $slug ? str_replace('-', ' ', $slug) : null;
 
@@ -128,6 +150,7 @@ class TestController extends AbstractController
             'genres' => $genres,
             'title' => 'Animes',
             'animangas' => $animangas,
+            'id' => $userId,
         ]);
     }
 
@@ -178,7 +201,8 @@ class TestController extends AbstractController
         $renderArr = [
             'animanga' => $animanga,
             'avis' => $avisList,
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            'id' => $userId,
 
         ];
 
