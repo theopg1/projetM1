@@ -8,7 +8,7 @@ class FrontEndAuthenticator{
     public function getUserId(UserRepository $userRepo, Session $session){
         $user = $this->getUser($userRepo,$session);
         if($user){
-            return ["id"];
+            return $user->getId();
         }
         return false;
     }

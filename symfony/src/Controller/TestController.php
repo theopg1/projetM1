@@ -136,14 +136,15 @@ class TestController extends AbstractController
     public function animanga(AnimangaRepository $repository, int $slug = null, Request $request, ManagerRegistry $doctrine,
     UserRepository $users, AvisRepository $avisRepo ) : Response
     {
+
         $frontEndIdenticator = new FrontEndAuthenticator();
 
         $userId = $frontEndIdenticator->getUserId($users, $request->getSession());
         
-        $id = $slug ? : null;
-        $isUserValid = !!$userId;
+        $animangaId = $slug ? : null;
+        $isUserValid = $userId !== false;
         
-        $animanga = $repository->findOneBy(['id' => $id]);
+        $animanga = $repository->findOneBy(['id' => $animangaId]);
         $avisList = $avisRepo->findBy(["animanga"=> $animanga]);
 
         $entityManager = $doctrine->getManager();
@@ -174,7 +175,6 @@ class TestController extends AbstractController
         }
 
         $renderArr = [
-            'title' => 'Animanga',
             'animanga' => $animanga,
             'avis' => $avisList,
             "form" => $form->createView()
