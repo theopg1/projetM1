@@ -191,16 +191,28 @@ class TestController extends AbstractController
     public function userProfil( int $id = null,Request $request, ManagerRegistry $doctrine,
                                 UserRepository $usersRepo, AvisRepository $avisRepo ) : Response
     {
+
+        /*$frontEndIdenticator = new FrontEndAuthenticator();
+        $userId = $frontEndIdenticator->getUserId($usersRepo, $request->getSession());
+        $userIdSession = $usersRepo->findOneBy(["id"=> $userId]);
+
+        $userIdProfil = $id ? : $usersRepo->find($userIdSession);*/
+
         $userId = $id;
 
-        $user = $usersRepo->find($id);
+        if( $id === null) {
+            $user = $usersRepo->findAll();
+        } else {
+            $user = $usersRepo->find($id);
+        }
 
         $avisList = $avisRepo->findBy(["userId"=> $userId]);
 
         return $this->render('user.html.twig', [
             'title' => '',
             'avis' => $avisList,
-            'user' => $user
+            'user' => $user,
+            'id' => $id,
         ]);
     }
 
