@@ -33,14 +33,22 @@
                         <div class="animanga-container p-3 text-center">
                             <a href="{{ path('animanga', {
                                 slug: animanga.id
-                            }) }}"><img class="imageListe" src="/images/animangas/{{ animanga.id }}.jpg" data-src="/images/animangas/{{ animanga.id }}.jpg" alt="Square placeholder img" >
+                            }) }}"><img class="imageListe" src="{{ animanga.image }}" data-src="{{ animanga.image }}" alt="Animanga image" >
                             </a>
                             <a href="{{ path('animanga', {
                                 slug: animanga.id
                             }) }}">
-                                <p class="mt-2" ><strong>{{ animanga.nom }}</strong></p>
+                                <p class="mt-2" ><strong>{{ animanga.title }}</strong></p>
                             </a>
-                            <span>{{ animanga.episodes }}</span> | <span>{{ animanga.genre }}</span>
+                            <span>Genres : {{ animanga.genres|replace({',': ' |'}) }}</span>
+                            <br><br>
+                            {% if animanga.type == "Manga" %}
+                                <span>Nombre de tomes : {{ animanga.tomes ? animanga.tomes : 'Inconnu' }}</span>
+                            {% elseif animanga.type == "Anime" %}
+                                <span>Nombre d'épisodes : {{ animanga.episodes ? animanga.episodes : 'Inconnu' }}</span>
+                            {% endif %}
+                            <br>
+                            <span>Date de sortie : {{ animanga.releaseDate }}</span>
                         </div>
                     </div>
                 {% endfor %}
@@ -55,20 +63,27 @@
                             <div class="animanga-container p-3 text-center">
                                 <a href="{{ path('animanga', {
                                     slug: animanga.id
-                                }) }}"><img class="imageListe" src="/images/animangas/{{ animanga.id }}.jpg" data-src="/images/animangas/{{ animanga.id }}.jpg" alt="Square placeholder img" >
+                                }) }}"><img class="imageListe" src="{{ animanga.image }}" data-src="{{ animanga.image }}" alt="Animanga image" >
                                 </a>
                                 <a href="{{ path('animanga', {
                                     slug: animanga.id
                                 }) }}">
-                                    <p class="mt-2" ><strong>{{ animanga.nom }}</strong></p>
+                                    <p class="mt-2" ><strong>{{ animanga.title }}</strong></p>
                                 </a>
-                                <span>{{ animanga.episodes }}</span> | <span>{{ animanga.genre }}</span>
+                                <span>Genres : {{ animanga.genres|replace({',': ' |'}) }}</span>
+                                <br><br>
+                                {% if animanga.type == "Manga" %}
+                                    <span>Nombre de tomes : {{ animanga.tomes ? animanga.tomes : 'Inconnu' }}</span>
+                                {% elseif animanga.type == "Anime" %}
+                                    <span>Nombre d'épisodes : {{ animanga.episodes ? animanga.episodes : 'Inconnu' }}</span>
+                                {% endif %}
+                                <br>
+                                <span>Date de sortie : {{ animanga.releaseDate }}</span>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-
-                <button type="button" class="btn btn-success"><i class="fas fa-plus"></i> Add an anime or manga</button>
+                
             </div>
         </div>
     </div>

@@ -25,15 +25,10 @@ class TestController extends AbstractController
     /**
      * @Route("/", name="homePage")
      */
-    public function homepage(Request $request, UserRepository $users) : Response
+    public function homepage(AnimangaRepository $repository, Request $request, UserRepository $users) : Response
     {
-        $animangas = [
-            ['id' => '1', 'nom' => 'Black Clover', 'episodes' => '24', 'genre' => 'Action'],
-            ['id' => '2','nom' => 'One Piece', 'episodes' => '850', 'genre' => 'Drama'],
-            ['id' => '3','nom' => 'Bleach', 'episodes' => '366', 'genre' => 'Action'],
-            ['id' => '4','nom' => 'Naruto', 'episodes' => '574', 'genre' => 'Comedy'],
-            ['id' => '5','nom' => 'Eyeshield21', 'episodes' => '64', 'genre' => 'Comedy'],
-        ];
+        $topMangas = $repository->findBy(['type' => 'Manga'],[],5);
+        $topAnimes = $repository->findBy(['type' => 'Anime'],[],5);
 
         $frontEndIdenticator = new FrontEndAuthenticator();
 
@@ -49,8 +44,8 @@ class TestController extends AbstractController
 
        return $this->render('homepage.html.twig', [
            'title' => '> Nos Mangas et Animes :',
-           'topMangas' => $animangas,
-           'topAnimes' => $animangas,
+           'topMangas' => $topMangas,
+           'topAnimes' => $topAnimes,
            'form' => $form->createView(),
            'id' => $userId,
        ]);
