@@ -72,12 +72,19 @@ class TestController extends AbstractController
         $criteria->where($expr);
         $criteria->orderBy(['title' => Criteria::ASC]);
 
-        $result = $repository->matching($criteria);
+        $criteriaUser = new Criteria();
+        $exprUser = new Comparison('username', Comparison::CONTAINS, $searchSlug);
+        $criteriaUser->where($exprUser);
+        $criteriaUser->orderBy(['username' => Criteria::ASC]);
+
+        $resultAnimanga = $repository->matching($criteria);
+        $resultProfil = $users->matching($criteriaUser);
 
         return $this->render('search.html.twig', [
             'searchSlug' => $searchSlug,
             'title' => 'Animangas',
-            'animangas' => $result,
+            'animangas' => $resultAnimanga,
+            'users' => $resultProfil,
             'id' => $userId,
         ]);
     }

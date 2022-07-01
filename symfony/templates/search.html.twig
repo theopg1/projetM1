@@ -7,7 +7,30 @@
     <h1>Search : {{ searchSlug ? searchSlug : '' }}</h1>
 
     <div>
-        <h2 class="mt-5">{{ title }}</h2>
+        <h2 class="mt-5">Users :</h2>
+        <div class="row">
+            {% if searchSlug is not null %}
+                {% for user in users %}
+                    <div class="col col-md-4">
+                        <div class="animanga-container p-3 text-center">
+                            {# <a target="_blank" href="{{ user.profile_image }}">
+                                <img class="imageAnimanga" src="{{ user.profile_image }}" data-src="{{ user.profile_image }}" alt="Square placeholder img">
+                            </a>#}
+                            <br>
+                            <a href="{{ path('users', {
+                                id: user.id
+                            }) }}">
+                                <p style="margin-top: 1em;"><strong>{{ user.username }}</strong></p>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div>
+        <h2 class="mt-5">{{ title }} :</h2>
         <div class="row">
                 {% if searchSlug is not null %}
                     {% for animanga in animangas %}
