@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class TestController extends AbstractController
+class MainController extends AbstractController
 {
 
     /**
