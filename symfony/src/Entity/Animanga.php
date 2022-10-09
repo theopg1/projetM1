@@ -53,7 +53,7 @@ class Animanga
     private $note;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      * @Groups({"animanga"})
      */
     private $releaseDate;
@@ -270,12 +270,12 @@ class Animanga
         return $this->getTitle();
     }
 
-    public function getReleaseDate(): ?int
+    public function getReleaseDate(): ?string
     {
         return $this->releaseDate;
     }
 
-    public function setReleaseDate(?int $releaseDate): self
+    public function setReleaseDate(?string $releaseDate): self
     {
         $this->releaseDate = $releaseDate;
 
